@@ -23,6 +23,14 @@ Install the project dependencies:
 
 npm install
 
+## Docker
+
+```
+docker build -t your-app-name .
+
+docker run -dp 3000:3000 --env-file ./.env calc-server
+```
+
 ## Configuration
 
 Create a .env file in the root directory of your project. Add environment-specific variables on new lines in the form of JWT_SECRET=SECRET:
