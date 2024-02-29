@@ -1,32 +1,36 @@
 openapi: 3.0.0
 info:
   title: Calculator API
-  description: A simple calculator API that performs basic arithmetic operations.
+  description: A simple calculator API that performs basic arithmetic operations and allows token generation.
   version: 1.0.0
 servers:
-- url: http://localhost:3001
+  - url: http://localhost:3001
 paths:
   /calculate:
     post:
       tags:
-      - Calculator
+        - Calculator
       summary: Perform an arithmetic operation on two numbers.
       operationId: calculate
       parameters:
-      - name: Operation
-        in: header
-        description: "The arithmetic operation to perform (add, subtract, multiply,\
-          \ divide)."
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
+        - name: Operation
+          in: header
+          style: simple
+          explode: false
+          required: true
+          schema:
+            type: string
+            enum:
+              - add
+              - subtract
+              - multiply
+              - divide
+          description: The arithmetic operation to perform.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CalcNum'
+              $ref: "#/components/schemas/CalcNum"
         required: true
       responses:
         "200":
@@ -34,33 +38,48 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: "#/components/schemas/OperationResult"
         "400":
           description: Invalid input
         "401":
           description: Unauthorized
       security:
-      - bearerAuth: []
+        - bearerAuth: []
       x-swagger-router-controller: Calculator
+  /token:
+    get:
+      tags:
+        - Token
+      summary: Generate a JWT token.
+      operationId: generateToken
+      responses:
+        "200":
+          description: A JWT token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+      x-swagger-router-controller: Auth
 components:
   schemas:
     CalcNum:
-      required:
-      - num1
-      - num2
       type: object
       properties:
         num1:
           type: number
         num2:
           type: number
-    inline_response_200:
+      required:
+        - num1
+        - num2
+    OperationResult:
       type: object
       properties:
         result:
           type: number
-      example:
-        result: 0.80082819046101150206595775671303272247314453125
   securitySchemes:
     bearerAuth:
       type: http

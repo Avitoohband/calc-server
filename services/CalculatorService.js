@@ -1,5 +1,4 @@
-'use strict';
-
+"use strict";
 
 /**
  * Perform an arithmetic operation on two numbers.
@@ -10,17 +9,17 @@
  **/
 
 const Operation = {
-  ADD: 'add',
-  SUBTRACT: 'subtract',
-  MULTIPLY: 'multiply',
-  DIVIDE: 'divide',
+  ADD: "add",
+  SUBTRACT: "subtract",
+  MULTIPLY: "multiply",
+  DIVIDE: "divide",
 };
 
-exports.calculate = function(body, req) {
-  return new Promise(function(resolve, reject) {
+exports.calculate = function (body, req) {
+  return new Promise(function (resolve, reject) {
     // Initialize result
     let result;
-    const operation = req.headers['operation']; // Accessing the operation from headers
+    const operation = req.headers["operation"]; // Accessing the operation from headers
 
     // Perform operation
     switch (operation.toLowerCase()) {
@@ -36,24 +35,24 @@ exports.calculate = function(body, req) {
       case Operation.DIVIDE:
         // Check for division by zero
         if (body.num2 === 0) {
-          reject('Division by zero is not allowed.');
+          reject("Division by zero is not allowed.");
           return;
         }
         result = body.num1 / body.num2;
         break;
       default:
         // Handle unknown operation
-        reject('Unknown operation.');
+        reject("Unknown operation.");
         return;
     }
 
     // Prepare and resolve the result
     var response = {
-      'application/json': {
-        "result": result
-      }
+      "application/json": {
+        result: result,
+      },
     };
 
-    resolve(response['application/json']);
+    resolve(response["application/json"]);
   });
-}
+};
