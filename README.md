@@ -26,7 +26,7 @@ npm install
 ## Docker
 
 ```
-docker build -t your-app-name .
+docker build -t calc-server .
 
 docker run -dp 3000:3000 --env-file ./.env calc-server
 ```
@@ -89,7 +89,7 @@ jsonwebtoken - Used to generate and verify JWT tokens
 
 ## Authors
 
-Avi Tuchabdn
+Avi Tuchband
 
 ## Overview
 
