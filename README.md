@@ -81,7 +81,7 @@ jsonwebtoken - Used to generate and verify JWT tokens
 
 ## Authors
 
-Avi Tuchabdn
+Avi Tuchband
 
 ## Overview
 
