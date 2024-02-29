@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Calculator API
+  description: A simple calculator API that performs basic arithmetic operations.
+  version: 1.0.0
+servers:
+- url: http://localhost:3001
+paths:
+  /calculate:
+    post:
+      tags:
+      - Calculator
+      summary: Perform an arithmetic operation on two numbers.
+      operationId: calculate
+      parameters:
+      - name: Operation
+        in: header
+        description: "The arithmetic operation to perform (add, subtract, multiply,\
+          \ divide)."
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalcNum'
+        required: true
+      responses:
+        "200":
+          description: Operation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Invalid input
+        "401":
+          description: Unauthorized
+      security:
+      - bearerAuth: []
+      x-swagger-router-controller: Calculator
+components:
+  schemas:
+    CalcNum:
+      required:
+      - num1
+      - num2
+      type: object
+      properties:
+        num1:
+          type: number
+        num2:
+          type: number
+    inline_response_200:
+      type: object
+      properties:
+        result:
+          type: number
+      example:
+        result: 0.80082819046101150206595775671303272247314453125
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
