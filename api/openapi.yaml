@@ -4,7 +4,7 @@ info:
   description: A simple calculator API that performs basic arithmetic operations and allows token generation.
   version: 1.0.0
 servers:
-  - url: http://localhost:3001
+  - url: http://localhost:8080
 paths:
   /calculate:
     post:
