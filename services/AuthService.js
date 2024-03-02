@@ -8,7 +8,7 @@ const JWT_EXPIRATION = "1m"; // Token expiration time
 exports.generateToken = function () {
   return new Promise(function (resolve, reject) {
     const payload = {
-      info: "This is a public token, customize the payload as needed.",
+      info: "This is a public token.",
     };
 
     try {
